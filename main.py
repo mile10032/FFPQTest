@@ -12,7 +12,16 @@ def get_valid_input(question):
             except ValueError:
             # 入力が整数に変換できない場合に表示されるエラーメッセージ
                 print("無効な入力です。数字の1から5を入力してください。")
-          
+def question1(hashMap,list):
+    for question, category in list:
+        input_prompt = question + "\n当てはまる数字を入れて下さい  "
+        answer = get_valid_input(input_prompt)
+        category = category.strip('()')  # カテゴリー名から括弧を取り除く
+        hashMap[category] += answer
+    return hashMap
+
+
+
 em =[['憂鬱になりやすい', '(Em3)'],
  ['自分がみじめな人間に思える', '(Em4)'],
  ['ものごとがうまく行かないのではないかと，よく心配する', '(Em1)'],
@@ -76,35 +85,11 @@ hashMapC = {'C1':0,'C2':0,'C3':0,'C4':0,'C5':0}
 hashMapA = {'A1':0,'A2':0,'A3':0,'A4':0,'A5':0}
 hashMapP = {'P1':0,'P2':0,'P3':0,'P4':0,'P5':0}
 
-for question, category in em:
-    input_prompt = question + "\n当てはまる数字を入れて下さい  "
-    answerEm = get_valid_input(input_prompt)
-    category = category.strip('()')  # カテゴリー名から括弧を取り除く
-    hashMapEM[category] += answerEm
-
-for question, category in ex:
-    input_prompt = question + "\n当てはまる数字を入れて下さい "
-    answerEx = get_valid_input(input_prompt)
-    category = category.strip('()')  # カテゴリー名から括弧を取り除く
-    hashMapEX[category] += answerEx
-
-for question, category in c:
-    input_prompt = question + "\n当てはまる数字を入れて下さい "
-    answerC = get_valid_input(input_prompt)
-    category = category.strip('()')  # カテゴリー名から括弧を取り除く
-    hashMapC[category] += answerC
-
-for question, category in a:
-    input_prompt = question + "\n当てはまる数字を入れて下さい  "
-    answerA = get_valid_input(input_prompt)
-    category = category.strip('()')  # カテゴリー名から括弧を取り除く
-    hashMapA[category] += answerA
-
-for question, category in p:
-    input_prompt = question + "\n当てはまる数字を入れて下さい  "
-    answerP = get_valid_input(input_prompt)
-    category = category.strip('()')  # カテゴリー名から括弧を取り除く
-    hashMapP[category] += answerP
+hashMapEM = question1(hashMapEM, em)
+hashMapEX = question1(hashMapEX, ex)
+hashMapC = question1(hashMapC, c)
+hashMapA = question1(hashMapA, a)
+hashMapP = question1(hashMapP, p)
 
 emMax= max(hashMapEM, key=hashMapEM.get)
 exMax= max(hashMapEX, key=hashMapEX.get)
